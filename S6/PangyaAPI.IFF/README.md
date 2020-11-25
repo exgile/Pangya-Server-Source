@@ -1,39 +1,68 @@
-# Pangya-Server-Source
-A series of PangYa Servers
+# PangyaAPI.IFF
+API responsible for reading .iff files
 
+Currently working with:
 
-All servers present in this repository :D
+[Ability.iff](Models/Ability.cs)
 
+[Achievement.iff](Models/Achievement.cs)
 
-# Pangya Server S6 Global (US)
+[AuxPart.iff](Models/AuxPart.cs)
 
-![pangya_001](https://user-images.githubusercontent.com/27017433/80647538-06390c80-8a45-11ea-872b-4792f27a5f31.jpg)
+[Ball.iff](Models/Ball.cs)
 
-- [Authors](#authors)
-- [Installation](#installation)
-- [Requirements](#start)
-- [Information](#information)
+[Caddie.iff](Models/Caddie.cs)
 
-### Start
-some programs are needed to run the project
+[CaddieItem.iff](Models/CaddieItem.cs)
 
-* [Visual Studio](https://visualstudio.microsoft.com/pt-br/) used to compile the project
-* [SQL SERVER](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) or higher used to create the database that will be used
-* [Pangya Client](aindavouupdar.com) Server Is Available with ProjectG 852.00 and 724.00 GB
+[CadieMagicBox.iff](Models/CaddieItem.cs)
 
-### Authors
+[CaddieItemRandom.iff](Models/CaddieItemRandom.cs)
 
-* **Eric Antonio** - *Project Creator* - [Pangya Unogames](https://github.com/eantoniobr)
-* **Luis MK** - *Project contributor* - [Pangya Unogames](https://github.com/luismk)
+[Card.iff](Models/Card.cs)
 
-### Information
-* Login Server: 100% complete
-* Messenger Server: 0% completed
-* GameServer: 40% completed
-* AuthServer: ?????
+[Character.iff](Models/Character.cs)
 
+[Club.iff](Models/Club.cs)
 
-### ShowCase
-* GAME CHAT_ROOM(PSQUARE)
+[ClubSet.iff](Models/ClubSet.cs)
 
-* Tutorial System
+[Course.iff](Models/Ball.cs)
+
+[CutinInfomation.iff](Models/CutinInformation.cs)
+
+[Desc.iff](Models/Desc.cs)
+
+[Enchant.iff](Models/Enchant.cs)
+
+[Furniture.iff](Models/Furniture.cs)
+
+[FurnitureAbility.iff](Models/FurnitureAbility.cs)
+
+[HairStyle.iff](Models/HairStyle.cs)
+
+[Item.iff](Models/Item.cs)
+
+[LevelUpPrizeItem.iff](Models/LevelUpPrizeItem.cs)
+
+[Mascot.iff](Models/Mascot.cs)
+
+[Match.iff](Models/Match.cs)
+
+[Part.iff](Models/Part.cs)
+
+[QuestItem.iff](Models/QuestItem.cs)
+
+[QuestStuff.iff](Models/QuestStuff.cs)
+
+[SetEffectTable.iff](Models/SetEffectTable.cs)
+
+[SetItem.iff](Models/SetItem.cs)
+
+[Skin.iff](Models/Skin.cs)
+
+[TikiPointTable.iff](Models/TikiPointTable.cs)
+
+[TikiRecipe.iff](Models/TikiRecipe.cs)
+
+[TikiSpecialTable.iff](Models/TikiSpecialTable.cs)
