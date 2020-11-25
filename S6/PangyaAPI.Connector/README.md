@@ -1,39 +1,6 @@
-# Pangya-Server-Source
-A series of PangYa Servers
+# PangyaAPI.Connector
+API responsible for:
 
+Database connection
 
-All servers present in this repository :D
-
-
-# Pangya Server S6 Global (US)
-
-![pangya_001](https://user-images.githubusercontent.com/27017433/80647538-06390c80-8a45-11ea-872b-4792f27a5f31.jpg)
-
-- [Authors](#authors)
-- [Installation](#installation)
-- [Requirements](#start)
-- [Information](#information)
-
-### Start
-some programs are needed to run the project
-
-* [Visual Studio](https://visualstudio.microsoft.com/pt-br/) used to compile the project
-* [SQL SERVER](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) or higher used to create the database that will be used
-* [Pangya Client](aindavouupdar.com) Server Is Available with ProjectG 852.00 and 724.00 GB
-
-### Authors
-
-* **Eric Antonio** - *Project Creator* - [Pangya Unogames](https://github.com/eantoniobr)
-* **Luis MK** - *Project contributor* - [Pangya Unogames](https://github.com/luismk)
-
-### Information
-* Login Server: 100% complete
-* Messenger Server: 0% completed
-* GameServer: 40% completed
-* AuthServer: ?????
-
-
-### ShowCase
-* GAME CHAT_ROOM(PSQUARE)
-
-* Tutorial System
+[MSSQL/SQL]
