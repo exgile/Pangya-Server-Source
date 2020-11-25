@@ -4,7 +4,7 @@ A series of PangYa Servers
 
 All servers present in this repository :D
 
-![pangya_001](https://user-images.githubusercontent.com/27017433/80647538-06390c80-8a45-11ea-872b-4792f27a5f31.jpg)
+![pangya_001](https://cdn.discordapp.com/attachments/765719041687420950/773644592926425088/unknown.png)
 
 - [Authors](#authors)
 - [Installation](#installation)
