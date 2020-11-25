@@ -20,7 +20,7 @@ some programs are needed to run the project
 
 ### Authors
 
-* **Luis MK** - *Project contributor* - [Pangya Unogames](https://github.com/luismk)
+* **Luis MK** - *Creator and Contributor* - [Pangya Unogames](https://github.com/luismk)
 
 ### Information
 * Login Server: 100% complete
