@@ -14,11 +14,11 @@ namespace Pangya_LoginServer.Handles
             session.Response.WriteByte((byte)1);//count servers 
              //data for game server list
             session.Response.WriteStr("PangYa S6", 40);
-            session.Response.WriteInt32(20202);//serverID
+            session.Response.WriteInt32(20201);//serverID
             session.Response.WriteInt32(2000);//max user
             session.Response.WriteInt32(1);//players online
             session.Response.WriteStr("127.0.0.1", 18);//ip server
-            session.Response.WriteInt32(20202);//port 
+            session.Response.WriteInt32(20201);//port 
             session.Response.WriteInt32(2048);//property
             session.Response.WriteUInt32(0); // Angelic Number
             session.Response.WriteUInt16((ushort)0);//Flag event

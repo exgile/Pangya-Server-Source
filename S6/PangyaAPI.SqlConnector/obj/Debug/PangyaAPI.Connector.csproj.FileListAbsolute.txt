@@ -1,0 +1,6 @@
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\Build\PangAPI.Connector.dll
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\Build\PangAPI.Connector.pdb
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangyaAPI.Connector.csproj.CoreCompileInputs.cache
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangAPI.Connector.dll
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangAPI.Connector.pdb
+C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangyaAPI.Connector.csprojAssemblyReference.cache

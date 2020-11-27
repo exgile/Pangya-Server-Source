@@ -1,15 +1,10 @@
 ﻿namespace PangyaAPI.IFF.Flags
 {
-    /// <summary>
-    /// Type Card(Volume)
-    /// </summary>
-   public enum CardTypeFlag
+    public enum CardTypeFlag
     {
-        Pack1,
-        Pack2,
-        Pack3,
-        Pack4,
-        Rare,
-        All
+        Normal = 0x0,
+        Caddie = 0x40,
+        NPC = 0x41,
+        Special = 0x80
     }
 }

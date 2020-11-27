@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Crypt", "..\Pangy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Auth", "..\PangyaAPI.Auth\PangyaAPI.Auth.csproj", "{E52D4A39-ABCE-418A-A172-643ED25A470C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Connector", "..\PangyaAPI.Connector\PangyaAPI.Connector.csproj", "{22B62E33-ED03-4466-9203-C852D399DE71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.SqlConnector", "..\PangyaAPISql.Connector\PangyaAPI.Connector.csproj", "{22B62E33-ED03-4466-9203-C852D399DE71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.IFF", "..\PangyaAPI.IFF\PangyaAPI.IFF.csproj", "{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}"
 EndProject

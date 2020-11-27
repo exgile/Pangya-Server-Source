@@ -19,13 +19,13 @@ namespace Pangya_LoginServer.Handles
         {
             session.Response.Write(new byte[] { 0x01, 0x00 });
             session.Response.WriteByte((byte)0);//code for login sucess
-            session.Response.WritePStr(session.GetLogin);
-            session.Response.WriteUInt32(session.GetUID);
-            session.Response.WriteUInt32(session.GetCapability);//Capacity
-            session.Response.WriteUInt32(session.GetLevel); // Level
+            session.Response.WritePStr(session.UserInfo.GetLogin);
+            session.Response.WriteUInt32(session.UserInfo.GetUID);
+            session.Response.WriteUInt32(session.UserInfo.GetCapability);//Capacity
+            session.Response.WriteUInt32(session.UserInfo.GetLevel); // Level
             session.Response.WriteUInt32(10);
             session.Response.WriteUInt16(12);
-            session.Response.WritePStr(session.GetNickname);
+            session.Response.WritePStr(session.UserInfo.GetNickname);
             session.SavePacket("Login");
             session.SendResponse();
         }

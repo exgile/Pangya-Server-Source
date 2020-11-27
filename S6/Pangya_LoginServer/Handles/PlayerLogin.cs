@@ -11,17 +11,17 @@ namespace Pangya_LoginServer.Handles
     {
         public static bool LoginResult(this LPlayer session, Packet packet)
         {
-            if (!packet.ReadPStr(out session.GetLogin))
+            if (!packet.ReadPStr(out session.UserInfo.GetLogin))
             {
                 return false;
             }
 
-            if (!packet.ReadPStr(out session.GetPass))
+            if (!packet.ReadPStr(out session.UserInfo.GetPass))
             {
                 return false;
             }
 
-            Console.WriteLine($"Login packet: {session.GetLogin}:{session.GetPass}");
+            Console.WriteLine($"Login packet: {session.UserInfo.GetLogin}:{session.UserInfo.GetPass}");
             var count = Directory.GetFiles(@"Packets", "*.*", SearchOption.TopDirectoryOnly).Count();
             if (count >= 7)
             {
@@ -30,9 +30,9 @@ namespace Pangya_LoginServer.Handles
                     var reader = new PangyaBinaryReader(new MemoryStream(File.ReadAllBytes("Packets\\Login.hex")));
                     reader.Skip(3);
                     var GetLogin = reader.ReadPStr();
-                    session.GetUID = reader.ReadUInt32();
-                    session.GetCapability = (byte)reader.ReadUInt32();
-                    session.GetLevel = (byte)reader.ReadUInt32();
+                    session.UserInfo.GetUID = reader.ReadUInt32();
+                    session.UserInfo.GetCapability = (byte)reader.ReadUInt32();
+                    session.UserInfo.GetLevel = (byte)reader.ReadUInt32();
                     reader.Skip(6);
                     var GetNickname = reader.ReadPStr();
                     if (string.IsNullOrEmpty(GetNickname))
@@ -46,14 +46,14 @@ namespace Pangya_LoginServer.Handles
                     }
                     else
                     {
-                        session.GetNickname = GetNickname;
+                        session.UserInfo.GetNickname = GetNickname;
                         return true;
                     }
 
                 }
             }
 
-            if (string.IsNullOrEmpty(session.GetNickname))
+            if (string.IsNullOrEmpty(session.UserInfo.GetNickname))
             {
                 session.Response.Write(new byte[] { 0x01, 0x00 });
                 session.Response.WriteByte((byte)0xD8);//Call Create NickName

@@ -5,6 +5,8 @@ using PangyaAPI.ZIP.Tools;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
+
 namespace PangyaAPI.IFF.Manager
 {
     public class IFFFile
@@ -466,7 +468,7 @@ namespace PangyaAPI.IFF.Manager
             }
             catch (Exception ex)
             {
-                Utils.MessageBoxError(ex.Message);
+                MessageBox.Show(ex.Message, "Pang.IFF.Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
             }
         }
@@ -535,6 +537,11 @@ namespace PangyaAPI.IFF.Manager
 
             }
             return "Unknown Item Name";
+        }
+
+        public bool IsSelfDesign(uint itemTypeID)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

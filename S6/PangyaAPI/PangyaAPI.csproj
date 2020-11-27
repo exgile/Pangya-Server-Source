@@ -44,6 +44,11 @@
   <ItemGroup>
     <Compile Include="BinaryModels\PangyaBinaryReader.cs" />
     <Compile Include="BinaryModels\PangyaBinaryWriter.cs" />
+    <Compile Include="Common\IniFile.cs" />
+    <Compile Include="Dispose\Collection\DisposableCollection.cs" />
+    <Compile Include="Dispose\IDisposeable.cs" />
+    <Compile Include="PangyaClient\Data\StatisticInfo.cs" />
+    <Compile Include="PangyaClient\Data\UserInfo.cs" />
     <Compile Include="PangyaPacket\IPacketTransformable.cs" />
     <Compile Include="PangyaPacket\Packet.cs" />
     <Compile Include="PangyaPacket\PacketBase.cs" />
@@ -51,25 +56,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PangyaClient\Player.cs" />
     <Compile Include="TcpServer\AsyncTcpServer.cs" />
+    <Compile Include="Tools\CompareObj.cs" />
+    <Compile Include="Tools\Point3D.cs" />
     <Compile Include="Tools\Utils.cs" />
     <Compile Include="Tools\WriteConsole.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PangyaAPI.Auth\PangyaAPI.Auth.csproj">
       <Project>{e52d4a39-abce-418a-a172-643ed25a470c}</Project>
       <Name>PangyaAPI.Auth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.Connector.csproj">
+    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.SqlConnector.csproj">
       <Project>{22b62e33-ed03-4466-9203-c852d399de71}</Project>
-      <Name>PangyaAPI.Connector</Name>
+      <Name>PangyaAPI.SqlConnector</Name>
     </ProjectReference>
     <ProjectReference Include="..\PangyaAPI.Crypt\PangyaAPI.Crypt.csproj">
       <Project>{0d37f682-4ae6-4768-a062-8bff40f478a7}</Project>
       <Name>PangyaAPI.Crypt</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

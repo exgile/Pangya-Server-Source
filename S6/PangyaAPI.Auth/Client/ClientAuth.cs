@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using PangyaAPI.Json;
 using PangyaAPI.Auth.AuthPacket;
 using PangyaAPI.Auth.Common;
-using PangyaAPI.Auth.Enums;
+using PangyaAPI.Auth.Flags;
 using System;
 using System.Linq;
 using System.Net.Sockets;
@@ -145,7 +145,7 @@ namespace PangyaAPI.Auth.Client
 
                     var json = System.Text.Encoding.Default.GetString(message);
 
-                    var response = JsonConvert.DeserializeObject<AuthPacketInfo>(json);
+                    var response = JsonConvert.Deserialize<AuthPacketInfo>(json);
 
                     //Dispara evento OnPacketReceived
                     OnPacketReceived?.Invoke(this, response);
@@ -213,7 +213,8 @@ namespace PangyaAPI.Auth.Client
         {
             var _stream = Tcp.GetStream();
 
-            var json = JsonConvert.SerializeObject(packet);
+            var json = JsonConvert.Serialize(packet);
+
 
             var result = json.Select(Convert.ToByte).ToArray();
             NetworkStream.Write(result, 0, result.Length);
@@ -241,7 +242,7 @@ namespace PangyaAPI.Auth.Client
 
             var json = System.Text.Encoding.Default.GetString(message);
 
-            var response = JsonConvert.DeserializeObject<AuthPacketInfo>(json);
+            var response = JsonConvert.Deserialize<AuthPacketInfo>(json);
 
             return response;
         }

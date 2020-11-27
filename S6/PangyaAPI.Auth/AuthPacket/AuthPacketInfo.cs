@@ -1,4 +1,4 @@
-﻿using PangyaAPI.Auth.Enums;
+﻿using PangyaAPI.Auth.Flags;
 using System;
 namespace PangyaAPI.Auth.AuthPacket
 {
@@ -6,8 +6,6 @@ namespace PangyaAPI.Auth.AuthPacket
     public class AuthPacketInfo
     {
         public AuthPacketEnum ID { get; set; }
-
-        public byte[] Data { get; set; }
 
         public dynamic Message { get; set; }
 

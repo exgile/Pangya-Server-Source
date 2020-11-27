@@ -25,7 +25,7 @@ namespace Pangya_LoginServer.Handles
             try
             {
                 WriteConsole.WriteLine($"[PLAYER_CREATE_CHARACTER]: {Program.IFF.GetName(CHAR_TYPEID).ToUpper()}");
-                if (string.IsNullOrEmpty(session.GetNickname) == false)
+                if (string.IsNullOrEmpty(session.UserInfo.GetNickname) == false)
                 {
                     session.LoginSucess();
                 }

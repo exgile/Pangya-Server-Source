@@ -230,6 +230,20 @@ namespace PangyaAPI.BinaryModels
             return true;
         }
 
+
+        public bool WriteUInt32(int value)
+        {
+            try
+            {
+                Write(Convert.ToUInt32(value));
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool WriteInt32(int value)
         {
             try

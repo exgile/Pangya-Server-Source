@@ -1,17 +1,19 @@
-﻿using Pangya_LoginServer.Handles;
+﻿using Pangya_LoginServer.Flags;
+using Pangya_LoginServer.Handles;
 using Pangya_LoginServer.LoginPlayer;
-using Pangya_LoginServer.LoginSocketServer;
+using Pangya_LoginServer.LoginTcpServer;
 using PangyaAPI.IFF.Manager;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.PangyaPacket;
 using PangyaAPI.Tools;
 using System;
+using System.Threading;
 namespace Pangya_LoginServer
 {
     class Program
     {
         static Server _server;
-       public static IFFFile IFF;
+        public static IFFFile IFF;
         static void Main()
         {
             IFF = new IFFFile();
@@ -22,7 +24,7 @@ namespace Pangya_LoginServer
             _server.OnPacketReceived += OnPacketReceived;
             while (true)
             {
-                System.Threading.Thread.Sleep(200);
+                Thread.Sleep(200);
             }
         }
 
@@ -41,61 +43,33 @@ namespace Pangya_LoginServer
         private static void OnPacketReceived(Player client, Packet packet)
         {
             var player = (LPlayer)client;
-
             WriteConsole.WriteLine($"[PLAYER_PACKET_LOG]: {player.GetAdress}:{player.GetPort}", ConsoleColor.Green);
             packet.Log();
-            switch (packet.Id)
+            switch ((LoginPacketFlag)packet.Id)
             {
-                /// <summary>
-                /// Player digita o usuário e senha e clica em login
-                /// </summary>
-                case 0x01:
+                case LoginPacketFlag.PLAYER_LOGIN:
                     if (player.LoginResult(packet))
                     {
                         player.LoginSucess();
                     }
                     break;
-                /// <summary>
-                /// Player Seleciona um Servidor para entrar
-                /// </summary>
-                case 0x03:
+                case LoginPacketFlag.PLAYER_SELECT_SERVER:
                     player.SelectServer(packet);
                     break;
-
-                /// <summary>
-                /// login com duplicidade 
-                /// </summary>
-                case 0x04:
+                case (LoginPacketFlag.PLAYER_DUPLCATE_LOGIN):
                     break;
-
-                /// <summary>
-                /// Seta primeiro nickname do usuário
-                /// </summary>
-                case 0x06:
+                case (LoginPacketFlag.PLAYER_SET_NICKNAME):
                     player.SetNickName(packet);
                     break;
-
-                /// <summary>
-                /// Ocorre quando o cliente clica em Confirmar (se o nickname está disponível), 
-                /// </summary>
-                case 0x07:
+                case LoginPacketFlag.PLAYER_CONFIRM_NICKNAME:
                     player.ConfirmNickName(packet);
                     break;
-                /// <summary>
-                /// Player selecionou seu primeiro personagem
-                /// </summary>
-                case 0x08:
+                case LoginPacketFlag.PLAYER_SELECT_CHARACTER:
                     player.CharacaterCreate(packet);
                     break;
-                /// <summary>
-                /// envia chave de autenficação do login e lista novamente os servers
-                /// </summary>
-                case 0x0B:
+                case LoginPacketFlag.PLAYER_RECONNECT:
                     break;
-                /// <summary>
-                /// ?????????
-                /// </summary>
-                case 0xFF:
+                case LoginPacketFlag.NOTHING:
                 default:
                     {
                         Console.WriteLine(BitConverter.ToString(packet.Message));
@@ -105,6 +79,5 @@ namespace Pangya_LoginServer
                     break;
             }
         }
-
     }
 }

@@ -68,8 +68,7 @@ namespace PangyaAPI.Tools
             return result.ToString();
         }
 
-
-       public static string RandomAuth(ushort Count)
+        public static string RandomAuth(ushort Count)
         {
             return Guid.NewGuid().ToString()
                 .ToUpper()

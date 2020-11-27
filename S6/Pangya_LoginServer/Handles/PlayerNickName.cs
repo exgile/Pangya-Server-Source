@@ -34,9 +34,9 @@ namespace Pangya_LoginServer.Handles
                 return;
             }
 
-            session.GetNickname = Nickname;
+            session.UserInfo.GetNickname = Nickname;
 
-            var check = Nickname == session.GetNickname;
+            var check = Nickname == session.UserInfo.GetNickname;
 
             session.Response.Write(new byte[] { 0x01, 0x00 });
             session.Response.WriteByte((byte)0xD9);//Caller ID for character creation

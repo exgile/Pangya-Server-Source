@@ -1,10 +1,9 @@
 ﻿using PangyaAPI.Auth.AuthPacket;
 using PangyaAPI.Auth.Client;
+using PangyaAPI.Dispose.Collection;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.PangyaPacket;
-using PangyaAPI.Tools;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
@@ -13,7 +12,7 @@ namespace PangyaAPI.TcpServer
     public abstract partial class AsyncTcpServer : IDisposable
     {
         #region Fields
-        public readonly Dictionary<long, Player> m_Clients;
+        public readonly DisposableCollection<Player> m_Clients;
 
         private bool disposed;
 
@@ -93,7 +92,7 @@ namespace PangyaAPI.TcpServer
             Address = IPAddress.Parse(localIPAddress);
             Port = listenPort;
 
-            m_Clients = new Dictionary<long, Player>(32);
+            m_Clients = new DisposableCollection<Player>(32);
             MsgBufferRead = new byte[500000];
             m_Listener = new TcpListener(Address, Port);
             m_Listener.Server.SendBufferSize = 1024 * 8;
@@ -164,15 +163,18 @@ namespace PangyaAPI.TcpServer
                 lock (m_Clients)
                 {
                     ClientCount++;
-                    m_Clients.Add(_Session.ConnectionID, _Session);
+                    m_Clients.Add(_Session);
                     OnClientConnected(_Session);
                 }
 
-                var _Stream = _Session.NetworkStream;
+                if(_Session.Tcp.Connected)
+                {
+                    var _Stream = _Session.NetworkStream;
 
-                _Stream.BeginRead(MsgBufferRead, 0, MsgBufferRead.Length, HandleDataReceived, _Session);
+                    _Stream.BeginRead(MsgBufferRead, 0, MsgBufferRead.Length, HandleDataReceived, _Session);
 
-                m_Listener.BeginAcceptTcpClient(HandleTcpClientAccepted, ar.AsyncState);
+                    m_Listener.BeginAcceptTcpClient(HandleTcpClientAccepted, ar.AsyncState);
+                }
             }
         }
 
@@ -180,7 +182,7 @@ namespace PangyaAPI.TcpServer
         {
             int bytesRead = 0;
             byte[] message = new byte[0];
-            if (IsRunning)
+            if (IsRunning && ((Player)ar.AsyncState).Tcp.Connected)
             {
                 var _Session = (Player)ar.AsyncState;
                 var _Stream = _Session.NetworkStream;
@@ -192,7 +194,7 @@ namespace PangyaAPI.TcpServer
                     if (bytesRead == 0)
                         lock (m_Clients)
                         {
-                            m_Clients.Remove(_Session.ConnectionID);
+                            m_Clients.Remove(_Session);
 
                             OnClientDisconnected(_Session);
                             return;
@@ -212,7 +214,7 @@ namespace PangyaAPI.TcpServer
                 {
                     lock (m_Clients)
                     {
-                        m_Clients.Remove(_Session.ConnectionID);
+                        m_Clients.Remove(_Session);
 
                         OnClientDisconnected(_Session);
                         return;
@@ -222,7 +224,7 @@ namespace PangyaAPI.TcpServer
                 //checa se o tamanho da mensagem é zerada
                 if (message.Length > 0)
                 {
-                    var packet = new Packet(message, _Session.GetKey);
+                    var packet = new Packet(message, _Session.Key);
                     //Dispara evento OnPacketReceived
                     PlayerRequestPacket(_Session, packet);
                 }
@@ -242,6 +244,7 @@ namespace PangyaAPI.TcpServer
         private void OnClientDisconnected(Player session)
         {
             ClientCount--;
+            session.Dispose();
             ClientDisconnected?.Invoke(session);
         }
 
@@ -251,17 +254,17 @@ namespace PangyaAPI.TcpServer
             {
                 pSession.Close();
                 if (pRemove)
-                    m_Clients.Remove(pSession.ConnectionID);
+                    m_Clients.Remove(pSession);
                 OnClientDisconnected(pSession);
             }
         }
 
         public void CloseAllClient()
         {
-            foreach (var _Session in m_Clients)
-                Close(_Session.Value, false);
+            foreach (var _Session in m_Clients.Model)
+                Close(_Session, false);
             ClientCount = 0;
-            m_Clients.Clear();
+            m_Clients.Model.Clear();
         }
 
         /// <summary>

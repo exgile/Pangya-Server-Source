@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pangya_GameServer", "Pangya_GameServer.csproj", "{98B15DD8-0F24-4949-8563-823723B130A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI", "..\PangyaAPI\PangyaAPI.csproj", "{E00570B2-8F6E-4E91-AD8F-A48C44789653}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Crypt", "..\PangyaAPI.Crypt\PangyaAPI.Crypt.csproj", "{0D37F682-4AE6-4768-A062-8BFF40F478A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Auth", "..\PangyaAPI.Auth\PangyaAPI.Auth.csproj", "{E52D4A39-ABCE-418A-A172-643ED25A470C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.SqlConnector", "..\PangyaAPISql.Connector\PangyaAPI.Connector.csproj", "{22B62E33-ED03-4466-9203-C852D399DE71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.IFF", "..\PangyaAPI.IFF\PangyaAPI.IFF.csproj", "{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.ZIP", "..\PangyaAPI.ZIP\PangyaAPI.ZIP.csproj", "{675E7854-7CFA-493C-827F-6AEFADA015CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98B15DD8-0F24-4949-8563-823723B130A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B15DD8-0F24-4949-8563-823723B130A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B15DD8-0F24-4949-8563-823723B130A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B15DD8-0F24-4949-8563-823723B130A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00570B2-8F6E-4E91-AD8F-A48C44789653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00570B2-8F6E-4E91-AD8F-A48C44789653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00570B2-8F6E-4E91-AD8F-A48C44789653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00570B2-8F6E-4E91-AD8F-A48C44789653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D37F682-4AE6-4768-A062-8BFF40F478A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D37F682-4AE6-4768-A062-8BFF40F478A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D37F682-4AE6-4768-A062-8BFF40F478A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D37F682-4AE6-4768-A062-8BFF40F478A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52D4A39-ABCE-418A-A172-643ED25A470C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52D4A39-ABCE-418A-A172-643ED25A470C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52D4A39-ABCE-418A-A172-643ED25A470C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52D4A39-ABCE-418A-A172-643ED25A470C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B62E33-ED03-4466-9203-C852D399DE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B62E33-ED03-4466-9203-C852D399DE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B62E33-ED03-4466-9203-C852D399DE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B62E33-ED03-4466-9203-C852D399DE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FB39B9-13B4-4AC4-BF88-89BB4AACF697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675E7854-7CFA-493C-827F-6AEFADA015CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675E7854-7CFA-493C-827F-6AEFADA015CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675E7854-7CFA-493C-827F-6AEFADA015CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675E7854-7CFA-493C-827F-6AEFADA015CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E26D731-F4F6-4C55-9EC4-A97714742BD7}
+	EndGlobalSection
+EndGlobal

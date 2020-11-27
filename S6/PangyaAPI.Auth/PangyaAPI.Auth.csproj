@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\Pangya_LoginServer\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,17 +44,18 @@
     <Compile Include="AuthPacket\AuthPacketInfo.cs" />
     <Compile Include="Client\ClientAuth.cs" />
     <Compile Include="Common\ServerInfo.cs" />
-    <Compile Include="Enums\AuthEnum.cs" />
+    <Compile Include="Flags\AuthEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TcpServerAuth\AsyncAuthServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.Connector.csproj">
+    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.SqlConnector.csproj">
       <Project>{22b62e33-ed03-4466-9203-c852d399de71}</Project>
-      <Name>PangyaAPI.Connector</Name>
+      <Name>PangyaAPI.SqlConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PangyaAPI.Json\PangyaAPI.Json.csproj">
+      <Project>{d634cad1-a8c0-481e-a2e5-211df4462869}</Project>
+      <Name>PangyaAPI.Json</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

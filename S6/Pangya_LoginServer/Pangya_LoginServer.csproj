@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flags\ConfirmNickNameFlag.cs" />
+    <Compile Include="Flags\LoginCodeFlag.cs" />
+    <Compile Include="Flags\LoginPacketFlag.cs" />
     <Compile Include="Handles\PlayerAuthKeys.cs" />
     <Compile Include="Handles\PlayerGameMacro.cs" />
     <Compile Include="Handles\PlayerLogin.cs" />
@@ -52,7 +55,7 @@
     <Compile Include="Handles\ServerList.cs" />
     <Compile Include="Handles\PlayerNickName.cs" />
     <Compile Include="LoginPlayer\LPlayer.cs" />
-    <Compile Include="LoginSocketServer\MainServer.cs" />
+    <Compile Include="LoginTcpServer\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +70,10 @@
     <ProjectReference Include="..\PangyaAPI.IFF\PangyaAPI.IFF.csproj">
       <Project>{08fb39b9-13b4-4ac4-bf88-89bb4aacf697}</Project>
       <Name>PangyaAPI.IFF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PangyaAPI.Json\PangyaAPI.Json.csproj">
+      <Project>{d634cad1-a8c0-481e-a2e5-211df4462869}</Project>
+      <Name>PangyaAPI.Json</Name>
     </ProjectReference>
     <ProjectReference Include="..\PangyaAPI.ZIP\PangyaAPI.ZIP.csproj">
       <Project>{675E7854-7CFA-493C-827F-6AEFADA015CA}</Project>
