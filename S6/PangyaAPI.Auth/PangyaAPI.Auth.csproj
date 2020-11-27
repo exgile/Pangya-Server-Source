@@ -49,7 +49,7 @@
     <Compile Include="TcpServerAuth\AsyncAuthServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.SqlConnector.csproj">
+    <ProjectReference Include="..\PangyaAPI.SqlConnector\PangyaAPI.SqlConnector.csproj">
       <Project>{22b62e33-ed03-4466-9203-c852d399de71}</Project>
       <Name>PangyaAPI.SqlConnector</Name>
     </ProjectReference>

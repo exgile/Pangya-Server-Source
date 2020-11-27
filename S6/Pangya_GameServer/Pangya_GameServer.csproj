@@ -127,7 +127,7 @@
       <Project>{e52d4a39-abce-418a-a172-643ed25a470c}</Project>
       <Name>PangyaAPI.Auth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PangyaAPI.Connector\PangyaAPI.SqlConnector.csproj">
+    <ProjectReference Include="..\PangyaAPI.SqlConnector\PangyaAPI.SqlConnector.csproj">
       <Project>{22b62e33-ed03-4466-9203-c852d399de71}</Project>
       <Name>PangyaAPI.SqlConnector</Name>
     </ProjectReference>

@@ -1,8 +1,0 @@
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\Build\PangAPI.SqlConnector.dll.config
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\Build\PangAPI.SqlConnector.dll
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\Build\PangAPI.SqlConnector.pdb
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangyaAPI.SqlConnector.csprojAssemblyReference.cache
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangyaAPI.SqlConnector.csproj.CoreCompileInputs.cache
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangyaAPI.SqlConnector.csproj.CopyComplete
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangAPI.SqlConnector.dll
-C:\Users\Cleudiana\source\repos\Pangya-Server-Source\S6\PangyaAPI.Connector\obj\Debug\PangAPI.SqlConnector.pdb
