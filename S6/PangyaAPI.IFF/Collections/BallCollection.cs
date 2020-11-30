@@ -1,10 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
 {
@@ -67,7 +68,8 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -78,5 +80,91 @@ namespace PangyaAPI.IFF.Collections
             }
             return "";
         }
+
+        public bool IsExist(uint ID)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return false;
+            }
+            if (ball.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return 99999999;
+            }
+            return ball.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return -1;
+            }
+            return (sbyte)ball.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return false;
+            }
+            if (ball.Base.Enabled == 1 && ball.Base.MoneyFlag == 0 || ball.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public UInt32 GetRealQuantity(UInt32 ID, UInt32 Qty)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return 0;
+            }
+            if ((ball.Base.Enabled == 1) && (ball.Power > 0))
+            {
+                return ball.Power;
+            }
+            return Qty;
+        }
+
+
+        bool LoadBall(uint ID, ref Ball ball)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Ball LoadBall(uint ID)
+        {
+            Ball ball = new Ball();
+            if (!LoadBall(ID, ref ball))
+            {
+                return ball;
+            }
+            return ball;
+        }
+
     }
 }

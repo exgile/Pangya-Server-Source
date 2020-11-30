@@ -66,5 +66,6 @@ namespace PangyaAPI.IFF.Collections
         {
             this.Clear();
         }
+
     }
 }

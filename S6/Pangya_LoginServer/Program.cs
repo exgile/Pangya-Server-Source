@@ -2,7 +2,7 @@
 using Pangya_LoginServer.Handles;
 using Pangya_LoginServer.LoginPlayer;
 using Pangya_LoginServer.LoginTcpServer;
-using PangyaAPI.IFF.Manager;
+using PangyaAPI.IFF;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.PangyaPacket;
 using PangyaAPI.Tools;
@@ -13,10 +13,11 @@ namespace Pangya_LoginServer
     class Program
     {
         static Server _server;
-        public static IFFFile IFF;
         static void Main()
         {
-            IFF = new IFFFile();
+            IFFEntry.Load();
+
+        var test=    IFFEntry.GetIff.Character.LoadCharacter(67108864);
             _server = new Server("127.0.0.1", 10103);
             _server.Start();
             _server.ClientConnected += ClientConnected;

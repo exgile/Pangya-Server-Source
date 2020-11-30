@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,6 +66,89 @@ namespace PangyaAPI.IFF.Collections
         ~CourseCollection()
         {
             this.Clear();
+        }
+
+        public string GetItemName(uint ID)
+        {
+            foreach (var item in this)
+            {
+                if (item.Base.TypeID == ID)
+                {
+                    return item.Base.Name;
+                }
+            }
+            return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Course Course = new Course();
+            if (!LoadCourse(ID, ref Course))
+            {
+                return false;
+            }
+            if (Course.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Course Course = new Course();
+            if (!LoadCourse(ID, ref Course))
+            {
+                return 99999999;
+            }
+            return Course.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Course Course = new Course();
+            if (!LoadCourse(ID, ref Course))
+            {
+                return -1;
+            }
+            return (sbyte)Course.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Course Course = new Course();
+            if (!LoadCourse(ID, ref Course))
+            {
+                return false;
+            }
+            if (Course.Base.Enabled == 1 && Course.Base.MoneyFlag == 0 || Course.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadCourse(uint ID, ref Course Course)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Course = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Course LoadCourse(uint ID)
+        {
+            Course Course = new Course();
+            if (!LoadCourse(ID, ref Course))
+            {
+                return Course;
+            }
+            return Course;
         }
     }
 }

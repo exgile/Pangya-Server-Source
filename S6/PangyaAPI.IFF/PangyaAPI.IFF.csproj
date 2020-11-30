@@ -83,6 +83,8 @@
     <Compile Include="Flags\MoneyFlag.cs" />
     <Compile Include="Flags\ShopFlag.cs" />
     <Compile Include="Collections\PartCollection.cs" />
+    <Compile Include="IFFEntry.cs" />
+    <Compile Include="Manager\IFFFileExtension.cs" />
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\Achievement.cs" />
     <Compile Include="Models\AuxPart.cs" />

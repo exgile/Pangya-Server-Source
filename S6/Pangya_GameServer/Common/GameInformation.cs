@@ -8,7 +8,7 @@ namespace Pangya_GameServer.Common
         public byte Unknown1;
         public uint VSTime;
         public uint GameTime;
-        public byte MaxPlayer;
+        public byte Max;
         public GameTypeFlag GameType;
         public byte HoleTotal;
         public GameMapFlag Map;

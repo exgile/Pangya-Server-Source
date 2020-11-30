@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using PangyaAPI.Auth.AuthPacket;
+﻿using PangyaAPI.Auth.AuthPacket;
 using PangyaAPI.Auth.Client;
 using PangyaAPI.Auth.Common;
+using PangyaAPI.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -191,7 +191,7 @@ namespace PangyaAPI.Auth.TcpServerAuth
                 {
                     var json = System.Text.Encoding.Default.GetString(message);
 
-                    var packet = JsonConvert.DeserializeObject<AuthPacketInfo>(json);
+                    var packet = JsonConvert.Deserialize<AuthPacketInfo>(json);
 
                     //Dispara evento OnPacketReceived
                     ClientRequestPacket(_Session, packet);

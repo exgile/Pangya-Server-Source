@@ -1,13 +1,14 @@
-﻿using Pangya_GameServer.Channel;
-using Pangya_GameServer.Common;
-using Pangya_GameServer.Game;
-using Pangya_GameServer.Models;
+﻿using Pangya_GameServer.Common;
+using Pangya_GameServer.Models.Channel.Model;
+using Pangya_GameServer.Models.Game;
+using Pangya_GameServer.Models.Game.Model;
+using Pangya_GameServer.Models.Player;
 using PangyaAPI.PangyaClient;
 using System;
 using System.Net.Sockets;
 namespace Pangya_GameServer.GPlayer
 {
-    public class Session : Player
+    public partial class Session : Player
     {
         #region Fields 
 
@@ -25,21 +26,7 @@ namespace Pangya_GameServer.GPlayer
         #endregion
         public Session(TcpClient pTcpClient) : base(pTcpClient)
         {
-        }
-
-        internal bool GetGameInfomations(int v)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal byte[] GetLobbyInfo()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetGameID(ushort ID)
-        {
-            GameID = ID;
+            InventoryLoad();
         }
     }
 }

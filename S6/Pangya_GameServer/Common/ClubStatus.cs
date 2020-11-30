@@ -1,4 +1,5 @@
 ﻿using Pangya_GameServer.Flags;
+using PangyaAPI.IFF;
 using System;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace Pangya_GameServer.Common
 
         public ClubStatus(uint TypeID)
         {
-            var ClubInfo = Program.IFF.ClubSet.First(c=> c.Base.TypeID == TypeID);
+            var ClubInfo = IFFEntry.GetIff.ClubSet.First(c=> c.Base.TypeID == TypeID);
             Power = ClubInfo.MaxPow;
             Control = ClubInfo.MaxCon;
             Impact = ClubInfo.MaxImp;
@@ -43,17 +44,17 @@ namespace Pangya_GameServer.Common
             return result;
         }
 
-        public ClubStatus GetClubPlayer(ClubStatus ClubPlayerData)
+        public ClubStatus GetClub(ClubStatus ClubData)
         {
             ClubStatus result;
-            result = this + ClubPlayerData;
+            result = this + ClubData;
             return result;
         }
 
-        public int GetClubTotal(ClubStatus ClubPlayerData, bool IsRankUp)
+        public int GetClubTotal(ClubStatus ClubData, bool IsRankUp)
         {
             int result;
-            result = (Power + Control + Impact + Spin + Curve + ClubPlayerData.Power + ClubPlayerData.Control + ClubPlayerData.Impact + ClubPlayerData.Spin + ClubPlayerData.Curve);
+            result = (Power + Control + Impact + Spin + Curve + ClubData.Power + ClubData.Control + ClubData.Impact + ClubData.Spin + ClubData.Curve);
             if (IsRankUp)
             {
                 result += 1;

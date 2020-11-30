@@ -1,9 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +69,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -77,6 +79,77 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Card card = new Card();
+            if (!LoadCard(ID, ref card))
+            {
+                return false;
+            }
+            if (card.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Card card = new Card();
+            if (!LoadCard(ID, ref card))
+            {
+                return 99999999;
+            }
+            return card.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Card card = new Card();
+            if (!LoadCard(ID, ref card))
+            {
+                return -1;
+            }
+            return (sbyte)card.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Card card = new Card();
+            if (!LoadCard(ID, ref card))
+            {
+                return false;
+            }
+            if (card.Base.Enabled == 1 && card.Base.MoneyFlag == 0 || card.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadCard(uint ID, ref Card ball)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Card LoadCard(uint ID)
+        {
+            Card Card = new Card();
+            if (!LoadCard(ID, ref Card))
+            {
+                return Card;
+            }
+            return Card;
         }
     }
 }

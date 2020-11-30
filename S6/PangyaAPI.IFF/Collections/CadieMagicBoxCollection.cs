@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,6 +66,53 @@ namespace PangyaAPI.IFF.Collections
         ~CadieMagicBoxCollection()
         {
             this.Clear();
+        }
+
+        public string GetItemName(uint ID)
+        {
+            foreach (var item in this)
+            {
+                if (item.BoxID == ID)
+                {
+                    return item.Name;
+                }
+            }
+            return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            CadieMagicBox cadieMagicBox = new CadieMagicBox();
+            if (!LoadCadieMagicBox(ID, ref cadieMagicBox))
+            {
+                return false;
+            }
+            if (cadieMagicBox.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool LoadCadieMagicBox(uint ID, ref CadieMagicBox ball)
+        {
+            var load = this.Where(c => c.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public CadieMagicBox LoadCadieMagicBox(uint ID)
+        {
+            CadieMagicBox cadieMagicBox = new CadieMagicBox();
+            if (!LoadCadieMagicBox(ID, ref cadieMagicBox))
+            {
+                return cadieMagicBox;
+            }
+            return cadieMagicBox;
         }
     }
 }

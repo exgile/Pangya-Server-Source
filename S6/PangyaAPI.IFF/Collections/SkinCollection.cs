@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -66,7 +67,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -76,6 +77,99 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Skin Skin = new Skin();
+            if (!LoadSkin(ID, ref Skin))
+            {
+                return false;
+            }
+            if (Skin.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID, uint aDay)
+        {
+            Skin Skin = new Skin();
+            if (!LoadSkin(ID, ref Skin))
+            {
+                return 99999999;
+            }
+            return Skin.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Skin Skin = new Skin();
+            if (!LoadSkin(ID, ref Skin))
+            {
+                return -1;
+            }
+            return (sbyte)Skin.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Skin Skin = new Skin();
+            if (!LoadSkin(ID, ref Skin))
+            {
+                return false;
+            }
+            if (Skin.Base.Enabled == 1 && Skin.Base.MoneyFlag == 0 || Skin.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public byte GetSkinFlag(uint TypeId)
+        {
+            Skin Items = new Skin();
+            if (!LoadSkin(TypeId, ref Items))
+            {
+                return 0;
+            }
+            if ((Items.Base.TypeID == TypeId) && (Items.Base.Enabled == 1))
+            {
+                if ((Items.Price7 == 0) && (Items.Price30 == 0) && (Items.PriceUnk == 0))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 0x20;
+                }
+            }
+            return 0;
+        }
+
+
+        bool LoadSkin(uint ID, ref Skin Skin)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Skin = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Skin LoadSkin(uint ID)
+        {
+            Skin Skin = new Skin();
+            if (!LoadSkin(ID, ref Skin))
+            {
+                return Skin;
+            }
+            return Skin;
         }
     }
 }

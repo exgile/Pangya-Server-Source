@@ -1,7 +1,7 @@
-﻿using Pangya_GameServer.Session;
+﻿using Pangya_GameServer.GPlayer;
 using PangyaAPI.Auth.AuthPacket;
 using PangyaAPI.Auth.Client;
-using PangyaAPI.Auth.Enums;
+using PangyaAPI.Auth.Flags;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.TcpServer;
 using PangyaAPI.Tools;
@@ -21,7 +21,7 @@ namespace Pangya_GameServer.GameTcpServer
             Close(session);
         }
 
-        protected override Player OnConnectPlayer(TcpClient tcp, uint ConnectionID)
+        protected override  Player OnConnectPlayer(TcpClient tcp, uint ConnectionID)
         {
             var player = new Session(tcp) { Server = this, ConnectionID = ConnectionID };
             SendKey(player);
@@ -34,7 +34,7 @@ namespace Pangya_GameServer.GameTcpServer
 
         protected override void SendKey(Player player)
         {
-            var US = new byte[] { 0x00, 0x06, 0x00, 0x00, 0x3F, 0x00, 0x01, 0x01, player.GetKey };
+            var US = new byte[] { 0x00, 0x06, 0x00, 0x00, 0x3F, 0x00, 0x01, 0x01, player.Key };
             
             //Envia packet com a chave
             player.SendPacket(US);

@@ -1,9 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +69,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -77,6 +79,77 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            AuxPart auxPart = new AuxPart();
+            if (!LoadAuxPart(ID, ref auxPart))
+            {
+                return false;
+            }
+            if (auxPart.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            AuxPart auxPart = new AuxPart();
+            if (!LoadAuxPart(ID, ref auxPart))
+            {
+                return 99999999;
+            }
+            return auxPart.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            AuxPart auxPart = new AuxPart();
+            if (!LoadAuxPart(ID, ref auxPart))
+            {
+                return -1;
+            }
+            return (sbyte)auxPart.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            AuxPart auxPart = new AuxPart();
+            if (!LoadAuxPart(ID, ref auxPart))
+            {
+                return false;
+            }
+            if (auxPart.Base.Enabled == 1 && auxPart.Base.MoneyFlag == 0 || auxPart.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadAuxPart(uint ID, ref AuxPart auxPart)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                auxPart = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public AuxPart LoadAuxPart(uint ID)
+        {
+            AuxPart auxPart = new AuxPart();
+            if (!LoadAuxPart(ID, ref auxPart))
+            {
+                return auxPart;
+            }
+            return auxPart;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Pangya_GameServer.Models;
+using Pangya_GameServer.Models.Player.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

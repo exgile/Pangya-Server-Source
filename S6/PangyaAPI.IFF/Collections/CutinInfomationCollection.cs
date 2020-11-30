@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,6 +66,44 @@ namespace PangyaAPI.IFF.Collections
         ~CutinInformationCollection()
         {
             this.Clear();
+        }
+
+      
+
+        public bool IsExist(uint ID)
+        {
+            CutinInformation CutinInformation = new CutinInformation();
+            if (!LoadCutinInformation(ID, ref CutinInformation))
+            {
+                return false;
+            }
+            if (CutinInformation.Enable == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        
+        bool LoadCutinInformation(uint ID, ref CutinInformation CutinInformation)
+        {
+            var load = this.Where(c => c.TypeID == ID);
+            if (load.Any())
+            {
+                CutinInformation = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public CutinInformation LoadCutinInformation(uint ID)
+        {
+            CutinInformation CutinInformation = new CutinInformation();
+            if (!LoadCutinInformation(ID, ref CutinInformation))
+            {
+                return CutinInformation;
+            }
+            return CutinInformation;
         }
     }
 }

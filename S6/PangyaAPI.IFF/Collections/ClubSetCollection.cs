@@ -1,9 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +69,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -77,6 +79,77 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            ClubSet ClubSet = new ClubSet();
+            if (!LoadClubSet(ID, ref ClubSet))
+            {
+                return false;
+            }
+            if (ClubSet.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            ClubSet ClubSet = new ClubSet();
+            if (!LoadClubSet(ID, ref ClubSet))
+            {
+                return 99999999;
+            }
+            return ClubSet.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            ClubSet ClubSet = new ClubSet();
+            if (!LoadClubSet(ID, ref ClubSet))
+            {
+                return -1;
+            }
+            return (sbyte)ClubSet.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            ClubSet ClubSet = new ClubSet();
+            if (!LoadClubSet(ID, ref ClubSet))
+            {
+                return false;
+            }
+            if (ClubSet.Base.Enabled == 1 && ClubSet.Base.MoneyFlag == 0 || ClubSet.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadClubSet(uint ID, ref ClubSet ball)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public ClubSet LoadClubSet(uint ID)
+        {
+            ClubSet ClubSet = new ClubSet();
+            if (!LoadClubSet(ID, ref ClubSet))
+            {
+                return ClubSet;
+            }
+            return ClubSet;
         }
     }
 }

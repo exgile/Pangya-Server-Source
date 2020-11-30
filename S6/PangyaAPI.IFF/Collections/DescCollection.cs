@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,6 +66,40 @@ namespace PangyaAPI.IFF.Collections
         ~DescCollection()
         {
             this.Clear();
+        }
+
+        public string GetItemDescription(uint ID)
+        {
+            foreach (var item in this)
+            {
+                if (item.TypeID == ID)
+                {
+                    return item.Description;
+                }
+            }
+            return "";
+        }
+
+
+        bool LoadDesc(uint ID, ref Desc Desc)
+        {
+            var load = this.Where(c => c.TypeID == ID);
+            if (load.Any())
+            {
+                Desc = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Desc LoadDesc(uint ID)
+        {
+            Desc Desc = new Desc();
+            if (!LoadDesc(ID, ref Desc))
+            {
+                return Desc;
+            }
+            return Desc;
         }
     }
 }

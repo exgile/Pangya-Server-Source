@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,20 +66,7 @@ namespace PangyaAPI.IFF.Collections
         {
             this.Clear();
         }
-
-        internal Part GetItem(uint TypeID)
-        {
-            foreach (var part in this)
-            {
-                if (part.Base.TypeID == TypeID)
-                {
-                    return part;
-                }
-            }
-            return new Part();
-        }
-
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -88,6 +76,92 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Part Part = new Part();
+            if (!LoadPart(ID, ref Part))
+            {
+                return false;
+            }
+            if (Part.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Part Part = new Part();
+            if (!LoadPart(ID, ref Part))
+            {
+                return 99999999;
+            }
+            return Part.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Part Part = new Part();
+            if (!LoadPart(ID, ref Part))
+            {
+                return -1;
+            }
+            return (sbyte)Part.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Part Part = new Part();
+            if (!LoadPart(ID, ref Part))
+            {
+                return false;
+            }
+            if (Part.Base.Enabled == 1 && Part.Base.MoneyFlag == 0 || Part.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+        public UInt32 GetRentalPrice(UInt32 TypeId)
+        {
+            Part Part = new Part();
+            if (!LoadPart(TypeId, ref Part))
+            {
+                return 0;
+            }
+            if ((Part.Base.Enabled == 1))
+            {
+                return Part.RentPang;
+            }
+            return 0;
+        }
+
+        bool LoadPart(uint ID, ref Part Part)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Part = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Part LoadPart(uint ID)
+        {
+            Part Part = new Part();
+            if (!LoadPart(ID, ref Part))
+            {
+                return Part;
+            }
+            return Part;
         }
     }
 }

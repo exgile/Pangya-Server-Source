@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -66,7 +67,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -76,6 +77,98 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Mascot Mascot = new Mascot();
+            if (!LoadMascot(ID, ref Mascot))
+            {
+                return false;
+            }
+            if (Mascot.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID, uint aDay)
+        {
+            Mascot Mascot = new Mascot();
+            if (!LoadMascot(ID, ref Mascot))
+            {
+                return 99999999;
+            }
+            return Mascot.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Mascot Mascot = new Mascot();
+            if (!LoadMascot(ID, ref Mascot))
+            {
+                return -1;
+            }
+            return (sbyte)Mascot.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Mascot Mascot = new Mascot();
+            if (!LoadMascot(ID, ref Mascot))
+            {
+                return false;
+            }
+            if (Mascot.Base.Enabled == 1 && Mascot.Base.MoneyFlag == 0 || Mascot.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetSalary(uint TypeId, uint Day)
+        {
+            Mascot Item = new Mascot();
+            if (!LoadMascot(TypeId, ref Item))
+            {
+                return 0;
+            }
+            if (Item.Base.Enabled == 1)
+            {
+                switch (Day)
+                {
+                    case 1:
+                        return Item.Price1;
+                    case 7:
+                        return Item.Price7;
+                    case 30:
+                        return Item.Price30;
+                }
+            }
+            return 0;
+        }
+
+        bool LoadMascot(uint ID, ref Mascot Mascot)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Mascot = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Mascot LoadMascot(uint ID)
+        {
+            Mascot Mascot = new Mascot();
+            if (!LoadMascot(ID, ref Mascot))
+            {
+                return Mascot;
+            }
+            return Mascot;
         }
     }
 }

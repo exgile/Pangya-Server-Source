@@ -1,9 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +69,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -78,5 +80,89 @@ namespace PangyaAPI.IFF.Collections
             }
             return "";
         }
+
+        public bool IsExist(uint ID)
+        {
+            Caddie caddie = new Caddie();
+            if (!LoadCaddie(ID, ref caddie))
+            {
+                return false;
+            }
+            if (caddie.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Caddie caddie = new Caddie();
+            if (!LoadCaddie(ID, ref caddie))
+            {
+                return 99999999;
+            }
+            return caddie.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Caddie caddie = new Caddie();
+            if (!LoadCaddie(ID, ref caddie))
+            {
+                return -1;
+            }
+            return (sbyte)caddie.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Caddie caddie = new Caddie();
+            if (!LoadCaddie(ID, ref caddie))
+            {
+                return false;
+            }
+            if (caddie.Base.Enabled == 1 && caddie.Base.MoneyFlag == 0 || caddie.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public uint GetSalary(uint TypeId)
+        {
+            foreach (var Item in this)
+            {
+                if (Item.Base.TypeID == TypeId && Item.Base.Enabled == 1)
+                {
+                    return Item.Salary;
+                }
+            }
+            return 0;
+        }
+
+        bool LoadCaddie(uint ID, ref Caddie ball)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Caddie LoadCaddie(uint ID)
+        {
+            Caddie caddie = new Caddie();
+            if (!LoadCaddie(ID, ref caddie))
+            {
+                return caddie;
+            }
+            return caddie;
+        }
+
     }
 }

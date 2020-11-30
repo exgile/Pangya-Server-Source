@@ -1,9 +1,11 @@
 ﻿using PangyaAPI.IFF.BinaryModels;
 using PangyaAPI.IFF.Common;
+using PangyaAPI.IFF.Flags;
 using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +69,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -77,6 +79,77 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            CaddieItem caddieItem = new CaddieItem();
+            if (!LoadCaddieItem(ID, ref caddieItem))
+            {
+                return false;
+            }
+            if (caddieItem.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID, uint aDay)
+        {
+            CaddieItem caddieItem = new CaddieItem();
+            if (!LoadCaddieItem(ID, ref caddieItem))
+            {
+                return 99999999;
+            }
+            return caddieItem.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            CaddieItem caddieItem = new CaddieItem();
+            if (!LoadCaddieItem(ID, ref caddieItem))
+            {
+                return -1;
+            }
+            return (sbyte)caddieItem.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            CaddieItem caddieItem = new CaddieItem();
+            if (!LoadCaddieItem(ID, ref caddieItem))
+            {
+                return false;
+            }
+            if (caddieItem.Base.Enabled == 1 && caddieItem.Base.MoneyFlag == 0 || caddieItem.Base.MoneyFlag == MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadCaddieItem(uint ID, ref CaddieItem ball)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                ball = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public CaddieItem LoadCaddieItem(uint ID)
+        {
+            CaddieItem caddieItem = new CaddieItem();
+            if (!LoadCaddieItem(ID, ref caddieItem))
+            {
+                return caddieItem;
+            }
+            return caddieItem;
         }
     }
 }

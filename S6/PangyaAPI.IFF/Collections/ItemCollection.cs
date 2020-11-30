@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -67,7 +68,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -77,6 +78,91 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Item Item = new Item();
+            if (!LoadItem(ID, ref Item))
+            {
+                return false;
+            }
+            if (Item.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Item Item = new Item();
+            if (!LoadItem(ID, ref Item))
+            {
+                return 99999999;
+            }
+            return Item.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Item Item = new Item();
+            if (!LoadItem(ID, ref Item))
+            {
+                return -1;
+            }
+            return (sbyte)Item.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Item Item = new Item();
+            if (!LoadItem(ID, ref Item))
+            {
+                return false;
+            }
+            if (Item.Base.Enabled == 1 && Item.Base.MoneyFlag == 0 || Item.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public UInt32 GetRealQuantity(UInt32 TypeId, UInt32 Qty)
+        {
+            Item Item = new Item();
+            if (!LoadItem(TypeId, ref Item))
+            {
+                return 0;
+            }
+            if ((Item.Base.Enabled == 1) && (Item.Power > 0))
+            {
+                return Item.Power;
+            }
+            return Qty;
+        }
+
+        bool LoadItem(uint ID, ref Item Item)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Item = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Item LoadItem(uint ID)
+        {
+            Item Item = new Item();
+            if (!LoadItem(ID, ref Item))
+            {
+                return Item;
+            }
+            return Item;
         }
     }
 }

@@ -39,13 +39,13 @@
         /// </summary>
         PLAYER_ANIMATION_WITH_EFFECTS = 0x0A
     }
-    public enum PlayerAction_Sub
+    public enum Action_Sub
     {
         PLAYER_ACTION_SUB_STAND = 0x00,
         PLAYER_ACTION_SUB_SIT = 0x01,
         PLAYER_ACTION_SUB_SLEEP = 0x02
     }
-    public enum PlayerAction_Sub_Header
+    public enum Action_Sub_Header
     {
         PLAYER_ACTION_HEADER_SCRATCHCARD = 0x0A
     }

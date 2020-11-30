@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -66,7 +67,7 @@ namespace PangyaAPI.IFF.Collections
             this.Clear();
         }
 
-        public string GetItemName(UInt32 ID)
+        public string GetItemName(uint ID)
         {
             foreach (var item in this)
             {
@@ -76,6 +77,77 @@ namespace PangyaAPI.IFF.Collections
                 }
             }
             return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(ID, ref HairStyle))
+            {
+                return false;
+            }
+            if (HairStyle.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(ID, ref HairStyle))
+            {
+                return 99999999;
+            }
+            return HairStyle.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(ID, ref HairStyle))
+            {
+                return -1;
+            }
+            return (sbyte)HairStyle.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(ID, ref HairStyle))
+            {
+                return false;
+            }
+            if (HairStyle.Base.Enabled == 1 && HairStyle.Base.MoneyFlag == 0 || HairStyle.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadHairStyle(uint ID, ref HairStyle HairStyle)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                HairStyle = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public HairStyle LoadHairStyle(uint ID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(ID, ref HairStyle))
+            {
+                return HairStyle;
+            }
+            return HairStyle;
         }
     }
 }

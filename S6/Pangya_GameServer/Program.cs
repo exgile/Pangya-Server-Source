@@ -1,34 +1,33 @@
-﻿using Pangya_GameServer.Common;
-using Pangya_GameServer.Flags;
+﻿using Pangya_GameServer.Flags;
 using Pangya_GameServer.GameTcpServer;
-using Pangya_GameServer.Session;
-using Pangya_GameServer.Handle.Channel.Collection;
-using PangyaAPI.IFF.Manager;
+using Pangya_GameServer.GPlayer;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.PangyaPacket;
 using PangyaAPI.Tools;
 using System;
 using System.Threading;
+using Pangya_GameServer.Models.Channel.Collection;
+using PangyaAPI.IFF;
+using Pangya_GameServer.Models;
 namespace Pangya_GameServer
 {
     class Program
     {
         static Server GameServer;
-        public static IFFFile IFF;
-
-        public static LobbyCollection LobbyList { get; internal set; }
+        static ServerOptions serverOptions;
+        public static LobbyCollection LobbyList { get; set; }
 
         static void Main(string[] args)
         {
-            IFF = new IFFFile();
             GameServer = new Server("127.0.0.1", 20201);
             GameServer.Start();
+            IFFEntry.Load();
             GameServer.ClientConnected += ClientConnected;
             GameServer.ClientDisconnected += ClientDisconnected;
             GameServer.OnPacketReceived += OnPacketReceived;
             while (true)
             {
-               Thread.Sleep(200);
+                Thread.Sleep(200);
             }
         }
 

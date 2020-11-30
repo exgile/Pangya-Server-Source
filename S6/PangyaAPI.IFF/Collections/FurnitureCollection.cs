@@ -4,6 +4,7 @@ using PangyaAPI.IFF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 namespace PangyaAPI.IFF.Collections
@@ -65,6 +66,89 @@ namespace PangyaAPI.IFF.Collections
         ~FurnitureCollection()
         {
             this.Clear();
+        }
+
+        public string GetItemName(uint ID)
+        {
+            foreach (var item in this)
+            {
+                if (item.Base.TypeID == ID)
+                {
+                    return item.Base.Name;
+                }
+            }
+            return "";
+        }
+
+        public bool IsExist(uint ID)
+        {
+            Furniture Furniture = new Furniture();
+            if (!LoadFurniture(ID, ref Furniture))
+            {
+                return false;
+            }
+            if (Furniture.Base.Enabled == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public uint GetPrice(uint ID)
+        {
+            Furniture Furniture = new Furniture();
+            if (!LoadFurniture(ID, ref Furniture))
+            {
+                return 99999999;
+            }
+            return Furniture.Base.ItemPrice;
+        }
+
+
+        public sbyte GetShopPriceType(uint ID)
+        {
+            Furniture Furniture = new Furniture();
+            if (!LoadFurniture(ID, ref Furniture))
+            {
+                return -1;
+            }
+            return (sbyte)Furniture.Base.PriceType;
+        }
+
+        public bool IsBuyable(uint ID)
+        {
+            Furniture Furniture = new Furniture();
+            if (!LoadFurniture(ID, ref Furniture))
+            {
+                return false;
+            }
+            if (Furniture.Base.Enabled == 1 && Furniture.Base.MoneyFlag == 0 || Furniture.Base.MoneyFlag == Flags.MoneyFlag.Active)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        bool LoadFurniture(uint ID, ref Furniture Furniture)
+        {
+            var load = this.Where(c => c.Base.TypeID == ID);
+            if (load.Any())
+            {
+                Furniture = load.First();
+                return false;
+            }
+            return true;
+        }
+
+        public Furniture LoadFurniture(uint ID)
+        {
+            Furniture Furniture = new Furniture();
+            if (!LoadFurniture(ID, ref Furniture))
+            {
+                return Furniture;
+            }
+            return Furniture;
         }
     }
 }
