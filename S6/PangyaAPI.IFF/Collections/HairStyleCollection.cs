@@ -128,6 +128,15 @@ namespace PangyaAPI.IFF.Collections
             return false;
         }
 
+        public HairStyle GetItem(uint TypeID)
+        {
+            HairStyle HairStyle = new HairStyle();
+            if (!LoadHairStyle(TypeID, ref HairStyle))
+            {
+                return HairStyle;
+            }
+            return HairStyle;
+        }
 
         bool LoadHairStyle(uint ID, ref HairStyle HairStyle)
         {
@@ -149,5 +158,6 @@ namespace PangyaAPI.IFF.Collections
             }
             return HairStyle;
         }
+
     }
 }

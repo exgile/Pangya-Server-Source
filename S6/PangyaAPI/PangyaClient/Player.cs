@@ -89,7 +89,10 @@ namespace PangyaAPI.PangyaClient
             UserInfo = new UserInfo();
 
             //Max Value hexadecimal value: FF (255)
-            Key = Convert.ToByte(new Random().Next(1, 15));
+           // Key = Convert.ToByte(new Random().Next(1, 15));
+
+            //Chave Fixa
+            Key = 0x0E;
 
             Response = new PangyaBinaryWriter(new MemoryStream());
 
@@ -111,7 +114,7 @@ namespace PangyaAPI.PangyaClient
             }
         }
 
-
+     
         /// <summary>
         /// not compression
         /// </summary>
@@ -119,24 +122,39 @@ namespace PangyaAPI.PangyaClient
         /// <param name="data"></param>
         public void SendPacket(byte[] data)
         {
-            Send(data);
+            SendEncrypted(data);
         }
+        public void Send(byte[] data)
+        {
+            data = Crypt.ServerCipher.Encrypt(data, Key, 0);
+            SendEncrypted(data);
+        }
+
+        public void Send(PangyaBinaryWriter resp)
+        {
+            var data = Crypt.ServerCipher.Encrypt(resp.GetBytes(), Key, 0);
+            SendEncrypted(data);
+        }
+
 
         public void SendResponse()
         {
             var DataCompression = Crypt.ServerCipher.Encrypt(Response.GetBytes(), Key, 0);
             Response.Clear();
-            Send(DataCompression);
+            SendEncrypted(DataCompression);
         }
 
         public void SendResponse(byte[] data)
         {
             var DataCompression = Crypt.ServerCipher.Encrypt(data, Key, 0);
-            Send(DataCompression);
+            SendEncrypted(DataCompression);
         }
 
-
-        public void Send(byte[] data)
+        public void SendResponse(PangyaBinaryWriter packet)
+        {
+            SendResponse(packet.GetBytes());
+        }
+        public void SendEncrypted(byte[] data)
         {
             if (Tcp.Connected)
             {

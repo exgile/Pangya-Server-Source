@@ -486,6 +486,11 @@ namespace PangyaAPI.IFF.Manager
             return false;
         }
 
+        public Models.HairStyle GetByHairColor(uint itemIffId)
+        {
+            return HairStyle.GetItem(itemIffId);
+        }
+
         public bool IsExist(uint TypeID)
         {
             switch (TypeID.GetItemGroup())

@@ -1,7 +1,7 @@
 ﻿using PangyaAPI.BinaryModels;
 namespace Pangya_GameServer.Models.Player.Data
 {
-    class TrophySpecialData
+   public class TrophySpecialData
     {
         public uint Index { get; set; }
         public uint TypeID { get; set; }

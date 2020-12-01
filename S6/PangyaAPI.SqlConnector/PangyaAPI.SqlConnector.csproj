@@ -241,7 +241,7 @@
     </Compile>
     <Compile Include="DataBase\Procedures\USP_UCC_REQUEST_UPLOAD_Result.cs">
     </Compile>
-    <Compile Include="PlayerConnectorEx.cs" />
+    <Compile Include="PlayerConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\DateTimeEx.cs" />
   </ItemGroup>

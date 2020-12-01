@@ -53,6 +53,7 @@ namespace Pangya_GameServer.Models.Game.Model
         // Medal Showing
         protected uint BestRecovery { get; set; }
         protected uint BestChipIn { get; set; }
+
         protected uint BestDrive { get; set; }
         protected uint BestSpeeder { get; set; }
         protected uint LongestPutt { get; set; }
@@ -66,8 +67,9 @@ namespace Pangya_GameServer.Models.Game.Model
         // UID AND GAMEScoreDATA
         protected Dictionary<uint, GameScoreData> Scores { get; set; }
         protected GameHolesCollection Holes { get; set; }
-
-
+        /// <summary>
+        /// Room Key 
+        /// </summary>
         protected byte[] GameKey { get; set; }
         // Event
         protected GameEvent Create { get; set; }//cria sala
@@ -134,7 +136,6 @@ namespace Pangya_GameServer.Models.Game.Model
 
         #endregion
 
-
         #region Methods
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace Pangya_GameServer.Models.Game.Model
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        protected bool Add(Session player)
+        public bool AddPlayer(Session player)
         {
             if (null == player)
             {
@@ -426,6 +427,34 @@ namespace Pangya_GameServer.Models.Game.Model
            return Holes.GetData();
         }
 
+        public byte[] GetGameInfo()
+        {
+            using (var packet = new PangyaBinaryWriter())
+            {
+                packet.Write(new byte[] { 0x86, 0x00 });
+                packet.Write(Started == true ? 0 : 1);
+                packet.Write(fGameData.HoleTotal);
+                if (fGameData.VSTime > 0)
+                {
+                    packet.Write(fGameData.VSTime);
+                }
+                else
+                {
+                    packet.Write(fGameData.GameTime);//fGameData.VSTime
+                }
+                packet.Write((byte)fGameData.Map);
+                packet.Write((byte)GameType);
+                packet.WriteByte((byte)fGameData.Mode);
+                packet.Write(Trophy);
+                packet.Write(0);
+                packet.Write(0);
+                packet.WriteZero(6);//unknown
+                packet.WriteUInt32(1000);//1000
+                return packet.GetBytes();
+            }
+        }
+
+
         /// <summary>
         /// Checks if there is an item to play in Practice Mode GP
         /// </summary>
@@ -540,7 +569,7 @@ namespace Pangya_GameServer.Models.Game.Model
 
         public void AddPlayerInEvent(Session player)
         {
-            Add(player);
+            AddPlayer(player);
 
             player.SetGameID((ushort)ID);
             player.GameInfo.SetDefault();
@@ -550,6 +579,20 @@ namespace Pangya_GameServer.Models.Game.Model
             SendGameInfo();
             ComposePlayer();
             SendPlayerOnJoin(player);
+        }
+
+        public bool RemovePlayer(Session session)
+        {
+            if (session == null)
+            {
+                return false;
+            }
+            else
+            {
+                Players.Remove(session);
+                PlayerGameDisconnect(session);
+                return true;
+            }
         }
 
         #endregion

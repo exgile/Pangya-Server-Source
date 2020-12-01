@@ -12,7 +12,6 @@ namespace Pangya_GameServer.Models.Player
         /// <summary>
         /// Size Packet 24 bytes
         /// </summary>
-
         public WarehouseCollection ItemWarehouse { get; set; }
         public CaddieCollection ItemCaddie { get; set; }
         public CharacterCollection ItemCharacter { get; set; }
@@ -20,8 +19,8 @@ namespace Pangya_GameServer.Models.Player
         public CardCollection ItemCard { get; set; }
         public CardEquipCollection ItemCardEquip { get; set; }
         public FurnitureCollection ItemRoom { get; set; }
-        //public TrophyCollection ItemTrophies { get; set; }
-        //public TrophySpecialCollection ItemTrophySpecial { get; set; }
+        public TrophyCollection ItemTrophies { get; set; }
+        public TrophySpecialCollection ItemTrophySpecial { get; set; }
         public TransactionsCollection ItemTransaction { get; set; }
         public ItemDecorationData ItemDecoration;
         public ItemSlotData ItemSlot;
@@ -58,8 +57,19 @@ namespace Pangya_GameServer.Models.Player
         public Inventory(uint ID)
         {
             UID = ID;
+            ItemCardEquip = new CardEquipCollection((int)UID);
+            ItemCharacter = new CharacterCollection((int)UID);
+            ItemMascot = new MascotCollection((int)UID);
+            ItemWarehouse = new WarehouseCollection((int)UID);
+            ItemCaddie = new CaddieCollection((int)UID);
+            ItemCard = new CardCollection((int)UID);
+            ItemTransaction = new TransactionsCollection();
+            ItemRoom = new FurnitureCollection((int)UID);
+            ItemSlot = new ItemSlotData();
+            ItemDecoration = new ItemDecorationData();
+            ItemTrophies = new TrophyCollection();
+            ItemTrophySpecial = new TrophySpecialCollection();
         }
-
         #endregion
     }
 }

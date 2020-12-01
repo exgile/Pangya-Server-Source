@@ -9,19 +9,19 @@ using System.Threading;
 using Pangya_GameServer.Models.Channel.Collection;
 using PangyaAPI.IFF;
 using Pangya_GameServer.Models;
+using Pangya_GameServer.Common;
+using Pangya_GameServer.Handle.PlayerLogin;
+using Pangya_GameServer.Handle.PlayerLobby;
+
 namespace Pangya_GameServer
 {
     class Program
     {
-        static Server GameServer;
-        static ServerOptions serverOptions;
-        public static LobbyCollection LobbyList { get; set; }
-
+        public static Server GameServer;
         static void Main(string[] args)
         {
             GameServer = new Server("127.0.0.1", 20201);
             GameServer.Start();
-            IFFEntry.Load();
             GameServer.ClientConnected += ClientConnected;
             GameServer.ClientDisconnected += ClientDisconnected;
             GameServer.OnPacketReceived += OnPacketReceived;
@@ -44,6 +44,21 @@ namespace Pangya_GameServer
             WriteConsole.WriteLine($"[PLAYER_CONNETED]: {session.GetAdress}:{session.GetPort}", ConsoleColor.Green);
         }
 
+        internal static bool CheckVersion(string version)
+        {
+            switch (version)
+            {
+                case "727.00":
+                    {
+                        return true;
+                    }
+                default:
+                    WriteConsole.WriteLine("[CLIENT_ERROR]: Client Version Incompartible => " + version);
+                    return false;
+            }
+        }
+
+
 
         private static void OnPacketReceived(Player client, Packet packet)
         {
@@ -54,12 +69,15 @@ namespace Pangya_GameServer
             {
                 case GamePacketFlag.PLAYER_LOGIN:
                     {
-                        player.Disconnect();
+                        player.ProcessLogin(packet);
                     }
                     break;
                 case GamePacketFlag.PLAYER_CHAT:
                     break;
                 case GamePacketFlag.PLAYER_SELECT_LOBBY:
+                    {
+                        player.ProcessLobby(packet);
+                    }
                     break;
                 case GamePacketFlag.PLAYER_CREATE_GAME:
                     break;

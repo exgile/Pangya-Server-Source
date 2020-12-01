@@ -6,7 +6,7 @@ namespace Pangya_GameServer.Common
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ServerOptionsData
     {
-        public ushort Unknown0;
+        public uint Unknown0;
         public uint Unknown1;
         public ushort Unknown2;
         public uint Unknown3;

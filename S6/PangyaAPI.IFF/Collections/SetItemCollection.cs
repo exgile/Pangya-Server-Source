@@ -150,5 +150,30 @@ namespace PangyaAPI.IFF.Collections
             }
             return SetItem;
         }
+
+        public List<Dictionary<uint, uint>> SetList(uint TypeID)
+        {
+            List<Dictionary<uint, uint>> result;
+            SetItem Items = new SetItem();
+            byte Count;
+            result = new List<Dictionary<uint, uint>>();
+            if (!LoadSetItem(TypeID, ref Items))
+            {
+                return result;
+            }
+            for (Count = 0; Count <= Items.Part_TypeID.Length - 1; Count++)
+            {
+                if (Items.Part_TypeID[Count] > 0)
+                {
+                    if (Items.Part_Qty[Count] <= 0)
+                    {
+                        Items.Part_Qty[Count] = 1;
+                    }
+                    result.Add(new Dictionary<uint, uint>() { { Items.Part_TypeID[Count], Items.Part_Qty[Count] } });
+                }
+            }
+            return result;
+        }
+
     }
 }

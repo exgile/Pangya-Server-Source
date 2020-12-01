@@ -513,6 +513,110 @@ namespace PangyaAPI.BinaryModels
                 }
             }
            // return obj;
-        }       
+        }
+
+        public Object ReadObject(object obj)
+        {
+            foreach (var property in obj.GetType().GetProperties())
+            {
+                Type type = property.PropertyType;
+
+                TypeCode typeCode = Type.GetTypeCode(type);
+                switch (typeCode)
+                {
+                    case TypeCode.Empty:
+                        break;
+                    case TypeCode.Object:
+                        {
+                            if (type.Name == "Byte[]")
+                            {
+                              //  property.SetValue(obj, ReadBytes(obj));
+                            }
+                        }
+                        break;
+                    case TypeCode.DBNull:
+                        break;
+                    case TypeCode.Boolean:
+                        {
+                            property.SetValue(obj, ReadBoolean());
+                        }
+                        break;
+                    case TypeCode.Char:
+                        {
+                            property.SetValue(obj, ReadChar());
+                        }
+                        break;
+                    case TypeCode.SByte:
+                        {
+                            property.SetValue(obj, ReadSByte());
+                        }
+                        break;
+                    case TypeCode.Byte:
+                        {
+                            property.SetValue(obj, ReadByte());
+                        }
+                        break;
+                    case TypeCode.Int16:
+                        {
+                            property.SetValue(obj, ReadInt16());
+                        }
+                        break;
+                    case TypeCode.UInt16:
+                        {
+                            property.SetValue(obj, ReadUInt16());
+                        }
+                        break;
+                    case TypeCode.Int32:
+                        {
+                            property.SetValue(obj, ReadInt32());
+                        }
+                        break;
+                    case TypeCode.UInt32:
+                        property.SetValue(obj, ReadUInt32());
+                        break;
+                    case TypeCode.Int64:
+                        {
+                            property.SetValue(obj, ReadInt64());
+                        }
+                        break;
+                    case TypeCode.UInt64:
+                        {
+                            property.SetValue(obj, ReadUInt64());
+                        }
+                        break;
+                    case TypeCode.Single:
+                        {
+                            property.SetValue(obj, ReadSingle());
+                        }
+                        break;
+                    case TypeCode.Double:
+                        {
+                            property.SetValue(obj, ReadDouble());
+                        }
+                        break;
+                    case TypeCode.Decimal:
+                        {
+                            property.SetValue(obj, ReadDecimal());
+                        }
+                        break;
+                    case TypeCode.DateTime:
+                        {
+                            property.SetValue(obj, ReadDateTime());
+                        }
+                        break;
+                    case TypeCode.String:
+                        {
+                            property.SetValue(obj, ReadPStr());
+                        }
+                        break;
+                    default:
+                        {
+                            Console.WriteLine("Object Type Name: " + typeCode);
+                        }
+                        break;
+                }
+            }
+             return obj;
+        }
     }
 }

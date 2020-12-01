@@ -186,6 +186,7 @@ namespace Pangya_GameServer.PacketCreator
             Response.WriteUInt16(0xFFFF);
             return Response.GetBytes();
         }
+
         public static byte[] ShowGameAction(byte[] GameInformation, GameActionFlag action)
         {
             var result = new PangyaBinaryWriter();

@@ -119,6 +119,17 @@ namespace PangyaAPI.PangyaPacket
             Reader.Seek(offset, origin);
         }
 
+        public object ReadObject(object obj)
+        {
+            return Reader.ReadObject(obj);
+        }
+
+        public bool ReadObject(out object obj)
+        {
+            Reader.ReadObject(out obj);
+            return true;
+        }
+
         public T Read<T>() where T : struct
         {
             return Reader.Read<T>();

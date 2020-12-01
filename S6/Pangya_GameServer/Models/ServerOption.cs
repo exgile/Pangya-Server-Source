@@ -5,9 +5,10 @@ namespace Pangya_GameServer.Models
     public class ServerOptions
     {
         ServerOptionsData m_data;
-        public ServerOptions(uint property)
+
+        public ServerOptions(ServerOptionFlag optionFlag, uint property)
         {
-            m_data.Set(ServerOptionFlag.MAINTENANCE_FLAG_PAPELSHOP, property);
+            SetOptions(optionFlag, property);
         }
 
         public ServerOptionsData OptionsData()

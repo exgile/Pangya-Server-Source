@@ -33,7 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,9 +60,11 @@
     <Compile Include="Common\ClubUpgradeTemporary.cs" />
     <Compile Include="Common\GameData.cs" />
     <Compile Include="Common\GameInformation.cs" />
+    <Compile Include="Common\LoginData.cs" />
     <Compile Include="Common\ServerOptionsData.cs" />
     <Compile Include="Flags\ServerOptionFlag.cs" />
-    <Compile Include="Handle\PlayerLobby\Login.cs" />
+    <Compile Include="Handle\PlayerLobby\SystemLobby.cs" />
+    <Compile Include="Handle\PlayerLogin\SystemLogin.cs" />
     <Compile Include="Models\Channel\Interface\ILobby.cs" />
     <Compile Include="Common\GameReward.cs" />
     <Compile Include="Common\GameScoreData.cs" />
@@ -69,6 +78,7 @@
     <Compile Include="Common\VersusInfo.cs" />
     <Compile Include="Flags\ClubStatusFlag.cs" />
     <Compile Include="Flags\ClubTypeFlag.cs" />
+    <Compile Include="Models\Channel\Model\Lobby.cs" />
     <Compile Include="Models\Extensions\SessionEx.cs" />
     <Compile Include="Models\Player\Collection\CaddieCollection.cs" />
     <Compile Include="Flags\GameActionFlag.cs" />
@@ -112,7 +122,6 @@
     <Compile Include="Models\Player\Data\MascotData.cs" />
     <Compile Include="GPlayer\Session.cs" />
     <Compile Include="Models\Channel\Collection\LobbyCollection.cs" />
-    <Compile Include="Models\Channel\Model\Lobby.cs" />
     <Compile Include="Models\Game\Model\GameBase.cs" />
     <Compile Include="Models\Player\Data\TransactionData.cs" />
     <Compile Include="Models\Player\Data\TrophyData.cs" />
@@ -127,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PangyaAPI.Auth\PangyaAPI.Auth.csproj">
@@ -150,7 +160,6 @@
     <Folder Include="Handle\Functions\" />
     <Folder Include="Handle\MiniGames\" />
     <Folder Include="Handle\PlayerGame\" />
-    <Folder Include="Handle\PlayerLogin\" />
     <Folder Include="Models\Collections\" />
     <Folder Include="Models\Game\Types\" />
   </ItemGroup>

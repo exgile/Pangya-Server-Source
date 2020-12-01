@@ -1,21 +1,32 @@
 ﻿using Pangya_GameServer.GPlayer;
+using Pangya_GameServer.Models;
+using Pangya_GameServer.Models.Channel.Collection;
+using Pangya_GameServer.Models.Channel.Model;
 using PangyaAPI.Auth.AuthPacket;
 using PangyaAPI.Auth.Client;
 using PangyaAPI.Auth.Flags;
+using PangyaAPI.IFF;
 using PangyaAPI.PangyaClient;
 using PangyaAPI.TcpServer;
 using PangyaAPI.Tools;
 using System;
-using System.Net;
 using System.Net.Sockets;
 namespace Pangya_GameServer.GameTcpServer
 {
     public class Server : AsyncTcpServer
     {
+        public LobbyCollection LobbyList { get; set; }
+
+        public ServerOptions Options;
+
         public Server(string localIPAddress, int listenPort) : base(localIPAddress, listenPort)
         {
-            WriteConsole.WriteLine($"[LOGINSERVER]: START {localIPAddress}:{listenPort}", ConsoleColor.Green);
+            Options = new ServerOptions(Flags.ServerOptionFlag.MAINTENANCE_FLAG_PAPELSHOP, 1);
+            IFFEntry.Load();
+            WriteConsole.WriteLine($"[GAMESERVER]: START {localIPAddress}:{listenPort}", ConsoleColor.Green);
+            LobbyList = new LobbyCollection(new Lobby(name: "#Lobby Test", maxPlayers: 100, id: 1, flag: 0));
         }
+
         public override void DisconnectPlayer(Player session)
         {
             Close(session);
@@ -40,6 +51,16 @@ namespace Pangya_GameServer.GameTcpServer
             player.SendPacket(US);
         }
 
+        public byte[] LobbiesList()
+        {
+            return LobbyList.Build(true);
+        }
+
+
+        public Lobby GetLobby(byte lobbyId)
+        {
+            return LobbyList.GetLobby(lobbyId);
+        }
 
         protected override ClientAuth AuthServerConstructor()
         {
@@ -87,5 +108,7 @@ namespace Pangya_GameServer.GameTcpServer
                     break;
             }
         }
+
+
     }
 }

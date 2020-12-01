@@ -4,6 +4,7 @@ using Pangya_GameServer.Models.Game;
 using Pangya_GameServer.Models.Game.Model;
 using Pangya_GameServer.Models.Player;
 using PangyaAPI.PangyaClient;
+using PangyaAPI.SqlConnector.DataBase;
 using System;
 using System.Net.Sockets;
 namespace Pangya_GameServer.GPlayer
@@ -12,7 +13,11 @@ namespace Pangya_GameServer.GPlayer
     {
         #region Fields 
 
+        public string GetSubLogin { get { return "@" + UserInfo.GetLogin; } }
+
         public ushort GameID { get; set; }
+
+        public ulong LockerPang { get; set; }
 
         public Lobby Lobby { get; set; }
 
@@ -21,12 +26,18 @@ namespace Pangya_GameServer.GPlayer
         public GameBase Game { get; set; }
 
         public Inventory Inventory { get; set; }
+        public string LockerPWD { get; internal set; }
 
         public GameData GameInfo;
+
+        public GuildData GuildInfo;
+
+        public PangyaEntities _db;
+
         #endregion
         public Session(TcpClient pTcpClient) : base(pTcpClient)
         {
-            InventoryLoad();
+            _db = new PangyaEntities();
         }
     }
 }

@@ -1,64 +1,41 @@
-﻿using Pangya_GameServer.GPlayer;
-using Pangya_GameServer.Models.Game.Model;
-namespace Pangya_GameServer.Models.Channel.Interface
+﻿namespace Pangya_GameServer.Models.Channel.Interface
 {
     interface ILobby
     {
-        byte sCount { get; }
-
+        /// <summary>
+        /// Lobby ID
+        /// </summary>
         byte Id { get; set; }
 
+        /// <summary>
+        /// Lobby Name
+        /// </summary>
         string Name { get; set; }
 
-        ushort Maxs { get; set; }
+        /// <summary>
+        /// Max Players in Lobby
+        /// </summary>
+        ushort MaxPlayers { get; set; }
 
+        /// <summary>
+        /// Lobby Type(Flag)
+        /// </summary>
         uint Flag { get; set; }
         /// <summary>
-        /// Counter
+        /// 
         /// </summary>
-        byte sInLobby { get; }
+        byte Count { get; }
+
+        /// <summary>
+        /// Lobby is full
+        /// </summary>
         bool IsFull { get; }
 
-        
         /// <summary>
-        /// Construi as informações do lobby
+        /// Build the lobby information
         /// </summary>
         /// <returns></returns>
         byte[] Build();
-        /// <summary>
-        /// Obtem a lista de jogos no lobby
-        /// </summary>
-        /// <returns></returns>
-        byte[] BuildGameLists();
-
-        /// <summary>
-        /// Obtem a lista de jogadores no lobby
-        /// </summary>
-        /// <returns></returns>
-        byte[] BuildLists();
-
-        /// <summary>
-        /// cria a sala
-        /// </summary>
-        /// <param name="GameHandle"></param>
-        void CreateGameEvent(GameBase GameHandle);
-        /// <summary>
-        /// Destruir a sala
-        /// </summary>
-        /// <param name="GameHandle"></param>
-        void DestroyGame(GameBase GameHandle);
-
-        void UpdateGameEvent(GameBase GameHandle);
-
-
-        void DestroyGameEvent(GameBase GameHandle);
-
-        void JoinGameEvent(GameBase GameHandle, Session player);
-
-        void LeaveGameEvent(GameBase GameHandle, Session player);
-
-        void Send(byte[] data);
-
-        bool Add(Session player);
+                
     }
 }
