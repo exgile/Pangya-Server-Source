@@ -9,8 +9,8 @@ All servers present in this repository :D
 - [Authors](#authors)
 - [Installation](#installation)
 - [Requirements](#start)
-- [Information_Server](#information_server)
-- [Information_Client](#information_client)
+- [Information_Server](#information server)
+- [Information_Client](#information client)
 
 
 ### Start
@@ -24,7 +24,7 @@ some programs are needed to run the project
 
 * **Luis MK** - *Creator and Contributor* - [Pangya Unogames](https://github.com/luismk)
 
-### Information_Server
+### Information Server
 * Login Server: 100% completed(has no database connection)
 * GameServer: 5% completed(has no database connection)
 * AuthServer: ?????
