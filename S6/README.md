@@ -9,8 +9,8 @@ All servers present in this repository :D
 - [Authors](#authors)
 - [Installation](#installation)
 - [Requirements](#start)
-- [Information_Server](#information server)
-- [Information_Client](#information client)
+- [Information_Server](#information-server)
+- [Information_Client](#information-client)
 
 
 ### Start
