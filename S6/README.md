@@ -6,6 +6,8 @@ All servers present in this repository :D
 
 ![pangya_001](https://cdn.discordapp.com/attachments/765719041687420950/773644592926425088/unknown.png)
 
+![pangya_002](https://cdn.discordapp.com/attachments/769943433929555968/783682802767626291/unknown.png)
+
 - [Authors](#authors)
 - [Installation](#installation)
 - [Requirements](#start)
