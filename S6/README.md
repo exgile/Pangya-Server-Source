@@ -33,4 +33,4 @@ some programs are needed to run the project
 
 ### Information Client
 * 1st: download the client and delete it from projectg728.pak up to 806
-* 2st: extract the Pangya_ClientFile/Pangya_Challenges.rar file where the Client is(update5 e updatelist são os mesmos)
+* 2st: extract the [Pangya Client](Pangya_ClientFile/Pangya_Challenges.rar) file where the Client is(update5 e updatelist são os mesmos)
